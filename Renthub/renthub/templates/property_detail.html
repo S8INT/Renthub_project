@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ property.title }}</h1>
+<img src="{{ property.image.url }}" alt="{{ property.title }}">
+<p>{{ property.description }}</p>
+<p>Price: {{ property.price }}</p>
+
+<h2>Reviews</h2>
+<ul>
+{% for review in reviews %}
+    <li>{{ review.reviewer.user.username }}: {{ review.comment }} - {{ review.rating }}/5</li>
+{% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <h3>Add a Review</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Review</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
+{% endif %}
+{% endblock %}
