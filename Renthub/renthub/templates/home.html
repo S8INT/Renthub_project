@@ -1,5 +1,12 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% block content %}
-<h1>Welcome to RentHUb</h1>
-<a href="{% url "property_list" %}">Properties</a>
+<section class="hero">
+    <div class="hero-text">
+        <h1>Welcome to RentHub</h1>
+        <p>Your go-to platform for renting and listing properties.</p>
+        <a href="{% url 'property_list' %}" class="btn-primary">Browse Properties</a>
+    </div>
+</section>
 {% endblock %}
+
