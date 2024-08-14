@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>Available Properties</h1>
+<section class="search-bar">
+    <form method="GET" action="{% url 'property_list' %}">
+        <input type="text" name="q" placeholder="Search for properties" value="{{ query }}">
+        <button type="submit" class="btn-search">Search</button>
+    </form>
+</section>
 
-<form method="GET" action="{% url 'property_list' %}">
-    <input type="text" name="q" placeholder="Search properties..." value="{{ request.GET.q }}">
-    <button type="submit">Search</button>
-</form>
-
-<ul>
-{% for property in properties %}
-    <li>
-        <a href="{% url 'property_detail' property.pk %}">
-            <img src="{{ property.image.url }}" alt="{{ property.title }}">
-            <h2>{{ property.title }}</h2>
-            <p>{{ property.price }}</p>
-        </a>
-    </li>
-{% endfor %}
-</ul>
+<section class="property-list">
+    {% for property in properties %}
+        <div class="property-item">
+            <a href="{% url 'property_detail' property.pk %}">
+                <img src="{{ property.image.url }}" alt="{{ property.title }}">
+                <h2>{{ property.title }}</h2>
+                <p>{{ property.address }}</p>
+                <p>Price: ${{ property.price }} per month</p>
+            </a>
+        </div>
+    {% empty %}
+        <p>No properties found.</p>
+    {% endfor %}
+</section>
 {% endblock %}

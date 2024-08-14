@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Edit Property{% else %}Add New Property{% endif %}</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Save Changes{% else %}Add Property{% endif %}</button>
+</form>
+{% endblock %}

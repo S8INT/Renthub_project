@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>My Properties</h1>
+                <a href="{% url 'property_create' %}" class="btn btn-success mb-3">Add New Property</a>
+                <hr>
+                {% if properties %}
+                    <div class="row">
+                        {% for property in properties %}
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ property.image.url }}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ property.title }}</h5>
+                                        <p class="card-text">{{ property.description }}</p>
+                                        <a href="{% url 'edit_property' property.id %}" class="btn btn-primary">Edit</a>
+                                        <a href="{% url 'delete_property' property.id %}" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No properties available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
