@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>{{ property.title }}</h1>
-<img src="{{ property.image.url }}" alt="{{ property.title }}">
-<p>{{ property.description }}</p>
-<p>Price: {{ property.price }}</p>
+<section class="property-detail">
+    <img src="{{ property.image.url }}" alt="{{ property.title }}">
+    <h2>{{ property.title }}</h2>
+    <p>{{ property.address }}</p>
+    <p>Price: ${{ property.price }} per month</p>
+    <p>{{ property.description }}</p>
+</section>
 
-<h2>Reviews</h2>
-<ul>
-{% for review in reviews %}
-    <li>{{ review.reviewer.user.username }}: {{ review.comment }} - {{ review.rating }}/5</li>
-{% endfor %}
-</ul>
+<section class="reviews">
+    <h3>Reviews</h3>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.reviewer.user.username }}</strong>
+                <p>{{ review.comment }}</p>
+                <span>{{ review.rating }}/5</span>
+                <small>{{ review.created_at }}</small>
 
-{% if user.is_authenticated %}
-    <h3>Add a Review</h3>
-    <form method="post">
+            </li>
+        {% empty %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+    <h3>Leave a Review</h3>
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit Review</button>
+        <button type="submit" class="btn-primary">Submit Review</button>
     </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
-{% endif %}
+    {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to leave a review.</p>
+    {% endif %}
+</section>
+
 {% endblock %}

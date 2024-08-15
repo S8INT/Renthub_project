@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<h2>Profile</h2>
+<div class="profile-section">
+    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+    <p>{{ profile.user.username }}</p>
+    <p>{{ profile.phone_number }}</p>
+    <p>{{ profile.bio }}</p>
+    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+</div>
+
+<h2>Your Properties</h2>
+<div class="property-section">
+    <a href="{% url 'add_property' %}" class="btn btn-primary">Add New Property</a>
+    <ul>
+        {% for property in properties %}
+        <li>
+            <img src="{{ property.image.url }}" alt="{{ property.title }}">
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.description }}</p>
+            <p>{{ property.price }}</p>
+            <a href="{% url 'edit_property' property.pk %}">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,13 +1,12 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=50)
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    contact = models.CharField(max_length=15, blank=True)
+    contact = models.CharField(max_length=20, blank=True)
     is_landlord = models.BooleanField(default=False)
 
     def __str__(self):
@@ -20,8 +19,13 @@ class Property(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     address = models.CharField(max_length=255)
     image = models.ImageField(upload_to='property_images/')
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='properties', null=True)
+    city = models.CharField(max_length=50, blank=True)
+    property_type = models.CharField(max_length=50, blank=True)
     is_available = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return self.title
@@ -29,9 +33,10 @@ class Property(models.Model):
 
 class Review(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='reviews')
-    reviewer = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='reviews')
     rating = models.PositiveBigIntegerField(default=1)
     comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return f'{self.reviewer.user.username} - {self.property.title}'
@@ -40,7 +45,7 @@ class Review(models.Model):
 class Message(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='sent_messages')
     receiver = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='received_message')
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='messages')
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
