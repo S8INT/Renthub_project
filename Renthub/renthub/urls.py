@@ -11,7 +11,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('properties/', PropertyListView.as_view(), name='property_list'),
     path('property/<int:pk>/', PropertyDetailView.as_view(), name='property_detail'),
-    path('property/delete/<int:pk>/', views.property_delete, name='delete_property'),
+    path('property/delete/<int:pk>/', views.PropertyDeleteView, name='delete_property'),
     path('inbox/', views.inbox, name='inbox'),
     path('message/<int:receiver_id>/', views.send_message, name='send_message'),
 
