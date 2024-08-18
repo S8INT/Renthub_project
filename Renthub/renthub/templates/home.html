@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- Hero Section -->
 <section class="hero">
     <div class="hero-text">
         <h1>Welcome to RentHub</h1>
@@ -8,5 +9,51 @@
         <a href="{% url 'property_list' %}" class="btn-primary">Browse Properties</a>
     </div>
 </section>
-{% endblock %}
 
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <h2>About RentHub</h2>
+        <p>RentHub is a peer-to-peer rental management platform that connects landlords and renters seamlessly.
+        Whether you're looking to rent a property or list one, RentHub offers a user-friendly, secure, and efficient platform for all your needs.</p>
+    </div>
+</section>
+
+<!-- Why Us Section -->
+<section class="why-us" id="why-us">
+    <div class="container">
+        <h2>Why Choose RentHub?</h2>
+        <div class="benefits">
+            <div class="benefit-item">
+                <h3>Wide Selection</h3>
+                <p>Access a diverse range of properties, from apartments to houses, available across various locations.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Secure Transactions</h3>
+                <p>Our platform ensures that all transactions are secure, giving you peace of mind whether you're renting or listing.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Direct Communication</h3>
+                <p>Connect directly with landlords or renters through our built-in messaging system, fostering clear and prompt communication.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>Transparent Reviews</h3>
+                <p>Read and leave reviews to make informed decisions. Our transparent rating system ensures credibility.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Impact Section -->
+<section class="community-impact" id="community-impact">
+    <div class="container">
+        <h2>Community Impact</h2>
+        <p>At RentHub, we're not just about renting and listing properties—we're about building communities. Our platform empowers local economies by supporting landlords and renters alike, creating opportunities for better living spaces and fostering trust within the rental community.</p>
+        <ul>
+            <li><strong>Supporting Local Economies:</strong> By facilitating local rentals, we help keep resources within the community.</li>
+            <li><strong>Building Trust:</strong> Our review and rating system helps build trust between renters and landlords.</li>
+            <li><strong>Encouraging Sustainability:</strong> We promote eco-friendly living by encouraging the rental of energy-efficient homes.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
