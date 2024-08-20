@@ -15,6 +15,7 @@
 <h2>Your Properties</h2>
 <div class="property-section">
     <a href="{% url 'add_property' %}" class="btn btn-primary">Add New Property</a>
+    <a href="{% url 'my_properties' %}" class="btn btn-primary">View All Properties</a>
     <ul>
         {% for property in properties %}
         <li>
