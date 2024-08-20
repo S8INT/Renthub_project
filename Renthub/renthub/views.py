@@ -1,9 +1,11 @@
 import io
 
 from PIL import Image
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -205,6 +207,20 @@ def edit_property(request, pk):
     return render(request, 'edit_property.html', {'form': form})
 
 
+# Delete Property View
+@login_required
+def property_delete(request, pk):
+    property_instance = get_object_or_404(Property, pk=pk)
+
+    if property_instance.owner.user == request.user:
+        property_instance.delete()
+        messages.success(request, "Property deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete this property.")
+
+    return redirect('my_properties')
+
+# My Properties View
 @login_required
 def my_properties(request):
     user_profile = get_user_profile(request.user)
